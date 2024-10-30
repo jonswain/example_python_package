@@ -1,0 +1,14 @@
+name: example_python_package
+
+dependencies:
+  - matplotlib=3.9.2
+  - numpy=1.26.4
+  - pandas=2.1.4
+  - python=3.11.9
+  # Dev
+  - black
+  - mypy
+  - ruff
+  - pip
+  - pip:
+    - pydoclint

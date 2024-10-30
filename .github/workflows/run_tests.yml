@@ -1,0 +1,47 @@
+name: Unit tests  
+  
+on: [push]  
+  
+jobs:  
+  tests:  
+    runs-on: ubuntu-latest  
+    strategy:  
+      matrix:  
+        python-version: ["3.11.9"]  
+    defaults:
+      run:
+        shell: bash -l {0}
+  
+    steps:  
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}  
+        uses: actions/setup-python@v4  
+        with:  
+          python-version: ${{ matrix.python-version }}  
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: true
+          activate-environment: ""
+      - name: Install dependencies  
+        run: |
+          conda env update --file envs/test.yml --name base 
+          pip install -e .
+      - name: Test with pytest  
+        run: |  
+          coverage run -m --source=src pytest -v -s  
+      - name: Generate coverage report  
+        run: |  
+          coverage report -m
+          COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//')
+          echo "COVERAGE=${COVERAGE}" >> $GITHUB_ENV
+      - name: Create coverage badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: 6b0c50d8a21d70ec5157b625d2e9a6e0
+          filename: example_python_package_coverage.json
+          label: Coverage
+          message: ${{ env.COVERAGE }}%
+          valColorRange: ${{ env.COVERAGE }}
+          minColorRange: 50
+          maxColorRange: 100
