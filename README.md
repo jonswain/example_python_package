@@ -1,6 +1,6 @@
 # example_python_package
 
-[![Unit Tests](https://github.com/jonswain/example_python_package/actions/workflows/run_tests.yml/badge.svg)](https://github.com/jonswain/example_python_package/actions/workflows/run_tests.yml)
+[![Unit tests](https://github.com/jonswain/example_python_package/actions/workflows/run_tests.yml/badge.svg)](https://github.com/jonswain/example_python_package/actions/workflows/run_tests.yml)
 ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jonswain/6b0c50d8a21d70ec5157b625d2e9a6e0/raw/example_python_package_coverage.json)
 
 An example of creating a Python package.
